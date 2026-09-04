@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+  <style>@font-face { font-family:'Archivo Black'; src:url('/tmp/ArchivoBlack.ttf'); }</style>
+  <path id="arc" d="M 205 835 Q 512 905 819 835"/>
+</defs>
+
+<!-- ===== BANNER / HEADBAND (ribbon-banner shape) ===== -->
+<path d="M 170 330
+         C 170 262, 330 244, 512 244
+         C 694 244, 854 262, 854 330
+         L 854 452
+         C 854 470, 858 486, 872 508
+         C 878 517, 872 524, 860 520
+         C 838 513, 820 505, 806 494
+         C 742 540, 624 556, 512 556
+         C 400 556, 282 540, 218 494
+         C 204 505, 186 513, 164 520
+         C 152 524, 146 517, 152 508
+         C 166 486, 170 470, 170 452 Z" fill="#EC2A28"/>
+<!-- subtle fold line under banner -->
+<path d="M 806 494 C 742 540, 624 556, 512 556 C 400 556, 282 540, 218 494"
+      fill="none" stroke="#CF211F" stroke-width="10" opacity="0.5" stroke-linecap="round"/>
+
+<!-- BG letters -->
+<text x="512" y="332" text-anchor="middle" dominant-baseline="middle" font-family="Archivo Black" font-size="250" fill="#FFFFFF" letter-spacing="0">BG</text>
+
+<!-- ===== BANDANA KNOT + TAILS ===== -->
+<!-- knot -->
+<rect x="468" y="545" width="88" height="82" rx="30" fill="#EC2A28"/>
+<!-- left tail (broad petal) -->
+<path d="M 505 600 C 470 690, 424 738, 372 766 C 356 774, 350 756, 360 730
+         C 384 668, 440 618, 500 606 Z" fill="#EC2A28"/>
+<!-- right tail (broad petal) -->
+<path d="M 519 600 C 554 690, 600 738, 652 766 C 668 774, 674 756, 664 730
+         C 640 668, 584 618, 524 606 Z" fill="#EC2A28"/>
+<!-- center tail -->
+<path d="M 484 618 C 486 700, 500 758, 512 792 C 524 758, 538 700, 540 618
+         C 522 632, 502 632, 484 618 Z" fill="#EC2A28"/>
+
+<!-- ===== BARCELONA GAMES curved ===== -->
+<text font-family="Archivo Black" font-size="52" fill="#EC2A28" letter-spacing="4">
+  <textPath href="#arc" startOffset="50%" text-anchor="middle">BARCELONA GAMES</textPath>
+</text>
+
+<!-- ===== IG HANDLE bottom-right ===== -->
+<text x="1006" y="1008" text-anchor="end" font-family="Lato, sans-serif" font-size="28" fill="#CF211F" font-weight="bold">@social.sports.games</text>
+</svg>

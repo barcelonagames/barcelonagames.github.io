@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<defs>
+  <style>
+    @font-face { font-family:'Archivo Black'; src:url('/tmp/ArchivoBlack.ttf'); }
+    text { font-family:'Archivo Black','Lato',sans-serif; }
+  </style>
+  <path id="arc" d="M 250 792 Q 512 900 774 792"/>
+</defs>
+
+<!-- ===== BANNER / HEADBAND ===== -->
+<!-- back sliver (fold shadow) -->
+<path d="M 175 470 C 175 560, 320 585, 512 585 C 704 585, 849 560, 849 470
+         C 849 540, 720 600, 512 600 C 304 600, 175 540, 175 470 Z" fill="#D2211F"/>
+<!-- main banner body -->
+<path d="M 178 360
+         C 178 268, 320 240, 512 240
+         C 704 240, 846 268, 846 360
+         L 846 468
+         C 846 556, 700 585, 512 585
+         C 324 585, 178 556, 178 468 Z" fill="#EC2A28"/>
+
+<!-- BG letters -->
+<text x="512" y="470" text-anchor="middle" font-size="300" fill="#FFFFFF" letter-spacing="6">BG</text>
+
+<!-- ===== BANDANA KNOT + TAILS ===== -->
+<!-- knot -->
+<rect x="470" y="565" width="84" height="78" rx="26" fill="#EC2A28"/>
+<!-- left tail -->
+<path d="M 500 620 C 470 700, 430 740, 388 770 C 372 782, 372 760, 386 720
+         C 405 668, 452 632, 500 625 Z" fill="#EC2A28"/>
+<!-- right tail -->
+<path d="M 524 620 C 554 700, 594 740, 636 770 C 652 782, 652 760, 638 720
+         C 619 668, 572 632, 524 625 Z" fill="#EC2A28"/>
+<!-- center tail -->
+<path d="M 486 640 C 486 720, 500 770, 512 792 C 524 770, 538 720, 538 640
+         C 520 650, 504 650, 486 640 Z" fill="#EC2A28"/>
+
+<!-- ===== BARCELONA GAMES curved ===== -->
+<text font-size="60" fill="#EC2A28" letter-spacing="8" font-weight="bold">
+  <textPath href="#arc" startOffset="50%" text-anchor="middle">BARCELONA GAMES</textPath>
+</text>
+
+<!-- ===== IG HANDLE bottom-right ===== -->
+<text x="1004" y="1006" text-anchor="end" font-family="Lato, sans-serif" font-size="30" fill="#D2211F" font-weight="bold">@social.sports.games</text>
+</svg>
