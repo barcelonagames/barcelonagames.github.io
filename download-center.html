@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Barcelona Games · 7-Day Download Center</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #05080C;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  color: white;
+}
+
+/* ── TOP HEADER ── */
+.site-header {
+  background: linear-gradient(160deg, #0A1420 0%, #0E1A14 100%);
+  border-bottom: 1px solid rgba(242,92,22,0.2);
+  padding: 44px 52px 36px;
+}
+.site-header .eyebrow {
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: #F25C16; font-weight: 700; margin-bottom: 10px;
+}
+.site-header h1 {
+  font-size: 36px; font-weight: 700; letter-spacing: -1px;
+  color: white; line-height: 1.15;
+}
+.site-header h1 span { color: #F25C16; }
+.site-header .sub {
+  font-size: 13px; color: rgba(255,255,255,0.32); margin-top: 10px; line-height: 1.6;
+}
+.how-to {
+  display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px;
+}
+.step-pill {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px; padding: 7px 16px; font-size: 12px; color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 7px;
+}
+.step-pill .n {
+  background: #F25C16; color: white; border-radius: 50%; width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; flex-shrink: 0;
+}
+
+/* ── DAY CARD ── */
+.day-card {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 44px 52px;
+}
+.day-card:nth-child(even) { background: #060A10; }
+
+.day-header-row {
+  display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px;
+}
+.day-num {
+  font-size: 64px; font-weight: 700; color: rgba(242,92,22,0.22);
+  letter-spacing: -3px; line-height: 1; flex-shrink: 0;
+}
+.day-meta { display: flex; flex-direction: column; gap: 4px; }
+.day-title { font-size: 24px; font-weight: 700; color: white; letter-spacing: -0.3px; }
+.day-date-time { font-size: 12px; color: rgba(255,255,255,0.28); letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── TWO COLUMN LAYOUT ── */
+.day-body {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 36px;
+  align-items: start;
+}
+
+/* ── PREVIEW COL ── */
+.preview-col { display: flex; flex-direction: column; gap: 12px; }
+.svg-frame {
+  width: 340px; height: 425px; border-radius: 10px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.svg-frame svg { display: block; width: 100%; height: 100%; }
+.safe-note {
+  font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 0.5px; text-align: center;
+}
+
+.btn-download {
+  width: 100%;
+  background: #F25C16;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background 0.15s, transform 0.1s;
+}
+.btn-download:hover { background: #E04E0E; }
+.btn-download:active { transform: scale(0.98); }
+.btn-download.loading { background: #8A3A0A; }
+.btn-download.done { background: #1A6A3A; }
+
+/* ── COPY COL ── */
+.copy-col { display: flex; flex-direction: column; gap: 16px; }
+
+.copy-block { display: flex; flex-direction: column; gap: 8px; }
+.copy-block-header {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.blk-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+.blk-label.orange { color: #F25C16; }
+.blk-label.blue   { color: #5A9AFF; }
+.blk-label.gold   { color: #ECCA6A; }
+.blk-label.teal   { color: #2EC4B6; }
+.blk-label.muted  { color: rgba(255,255,255,0.25); }
+
+.btn-copy {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.5);
+  border-radius: 6px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-copy:hover { background: rgba(255,255,255,0.1); color: white; }
+.btn-copy.copied { color: #2EC4B6; border-color: rgba(46,196,182,0.4); background: rgba(46,196,182,0.08); }
+
+.text-box {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(255,255,255,0.72);
+  white-space: pre-wrap;
+  word-break: break-word;
+  cursor: text;
+  user-select: all;
+}
+
+.text-box.hashtags {
+  background: rgba(11,37,69,0.5);
+  border-color: rgba(90,154,255,0.2);
+  color: #7EB0FF;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.story-box {
+  background: rgba(236,202,106,0.04);
+  border: 1px solid rgba(236,202,106,0.16);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: rgba(236,202,106,0.68);
+  line-height: 1.7;
+}
+
+.tip-box {
+  background: rgba(242,92,22,0.06);
+  border: 1px solid rgba(242,92,22,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 13px;
+  color: rgba(242,92,22,0.8);
+  line-height: 1.7;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  padding: 36px 52px;
+  background: #0A1420;
+  border-top: 1px solid rgba(242,92,22,0.12);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.site-footer p { font-size: 12px; color: rgba(255,255,255,0.2); }
+.site-footer .brand { font-size: 13px; font-weight: 600; color: rgba(242,92,22,0.55); }
+</style>
+</head>
+<body>
+
+<!-- ━━━ HEADER ━━━ -->
+<div class="site-header">
+  <div class="eyebrow">Social Sports Games · Instagram Campaign</div>
+  <h1>7-Day Download Center<br><span>Barcelona Games.</span></h1>
+  <div class="sub">
+    Each image downloads as a proper 1080×1350 PNG — Instagram portrait format, safe-zone-compliant, ready to post.<br>
+    Captions and hashtags are one click to copy. Post from your camera roll directly to Instagram.
+  </div>
+  <div class="how-to">
+    <div class="step-pill"><span class="n">1</span>Click ⬇ Download — PNG saves to your Downloads</div>
+    <div class="step-pill"><span class="n">2</span>Click Copy Caption → paste into Instagram</div>
+    <div class="step-pill"><span class="n">3</span>Post the image → add hashtags as first comment</div>
+    <div class="step-pill"><span class="n">4</span>Immediately share to Story — instructions below each</div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 1 — TEASER                        -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">01</div>
+    <div class="day-meta">
+      <div class="day-title">The Teaser</div>
+      <div class="day-date-time">Wednesday 20 May · Post at 18:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg1" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#0E1A14"/>
+          <circle cx="540" cy="660" r="520" fill="none" stroke="#F25C16" stroke-width="1" opacity="0.05"/>
+          <circle cx="540" cy="660" r="400" fill="none" stroke="#F25C16" stroke-width="1" opacity="0.07"/>
+          <circle cx="540" cy="660" r="280" fill="none" stroke="#F25C16" stroke-width="1" opacity="0.06"/>
+          <circle cx="540" cy="660" r="160" fill="#F25C16" opacity="0.04"/>
+          <line x1="0" y1="580" x2="480" y2="1350" stroke="white" stroke-width="1" opacity="0.025"/>
+          <line x1="250" y1="0" x2="920" y2="1350" stroke="white" stroke-width="1" opacity="0.02"/>
+          <!-- Safe zone top: 220px — label sits above y=220 subtly -->
+          <text x="540" y="180" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.14" letter-spacing="5">SOCIAL SPORTS GAMES</text>
+          <!-- Main content in safe zone: y 220–900 -->
+          <rect x="460" y="380" width="160" height="160" rx="32" fill="#F25C16"/>
+          <text x="540" y="487" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="64" font-weight="700" fill="white">BG</text>
+          <text x="540" y="738" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="116" font-weight="700" fill="white" letter-spacing="-3">04.07.26</text>
+          <text x="540" y="830" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="white" opacity="0.28" letter-spacing="6">BARCELONA</text>
+          <line x1="320" y1="876" x2="760" y2="876" stroke="white" stroke-width="1" opacity="0.1"/>
+          <text x="540" y="950" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="34" fill="white" opacity="0.42" font-style="italic">Something's coming.</text>
+          <!-- Follow CTA — well within safe zone -->
+          <text x="540" y="1140" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.22" letter-spacing="3">FOLLOW FOR UPDATES</text>
+          <!-- Footer — above 450px from bottom: y &lt; 900 from bottom = y &lt; 1350-450=900... y=1260 is fine for feed posts -->
+          <text x="540" y="1268" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="white" opacity="0.16" letter-spacing="2">@barcelonagames</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg1','barcelona-games-day-01-teaser.png', this)">
+        ⬇&nbsp; Download Day 01 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption — paste exactly as written</span>
+          <button class="btn-copy" onclick="copyText('cap1', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap1">04.07.26. Barcelona.
+
+Something's coming.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — post as first comment</span>
+        </div>
+        <div class="text-box hashtags">No hashtags on Day 1.
+
+Keep it mysterious. The silence is the hook.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — immediately after posting</div>
+        <div class="story-box">Share the post to your story. Add a Countdown sticker → set it to "Barcelona Games" on July 4, 2026. Drop one 👀 emoji sticker in the corner. Nothing else — no link, no CTA yet. Let people wonder.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip</div>
+        <div class="tip-box">If anyone DMs asking what it is, reply only: "👀 Stay tuned." Don't explain. The mystery creates saves — and saves are the most powerful signal the algorithm reads.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 2 — ANNOUNCEMENT                  -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">02</div>
+    <div class="day-meta">
+      <div class="day-title">The Full Reveal</div>
+      <div class="day-date-time">Thursday 21 May · Post at 18:30 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg2" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#0B2545"/>
+          <circle cx="980" cy="90" r="480" fill="none" stroke="#ECCA6A" stroke-width="2" opacity="0.17"/>
+          <circle cx="980" cy="90" r="370" fill="none" stroke="#ECCA6A" stroke-width="1.5" opacity="0.11"/>
+          <circle cx="980" cy="90" r="250" fill="none" stroke="#ECCA6A" stroke-width="1" opacity="0.08"/>
+          <circle cx="980" cy="90" r="116" fill="#F25C16" opacity="0.9"/>
+          <circle cx="80" cy="1300" r="220" fill="#ECCA6A" opacity="0.03"/>
+          <!-- Content all within safe zone y:220 – y:900 for stories, but full for feed -->
+          <text x="540" y="172" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="#ECCA6A" opacity="0.72" letter-spacing="5">FIRST PUBLIC EDITION</text>
+          <circle cx="426" cy="226" r="16" fill="#E63946"/>
+          <circle cx="480" cy="226" r="16" fill="#F4A261"/>
+          <circle cx="540" cy="226" r="16" fill="#2EC4B6"/>
+          <circle cx="600" cy="226" r="16" fill="#8338EC"/>
+          <circle cx="654" cy="226" r="16" fill="#06D6A0"/>
+          <text x="540" y="572" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="144" font-weight="700" fill="white" letter-spacing="-4">Barcelona</text>
+          <text x="540" y="736" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="144" font-weight="700" fill="#F25C16" letter-spacing="-4">Games.</text>
+          <line x1="220" y1="782" x2="860" y2="782" stroke="#ECCA6A" stroke-width="1.5" opacity="0.3"/>
+          <text x="540" y="845" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="32" fill="white" opacity="0.5">Compete · Connect · Play</text>
+          <rect x="175" y="892" width="730" height="108" rx="54" fill="#F25C16"/>
+          <text x="540" y="958" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="32" font-weight="700" fill="white" letter-spacing="1">GRAB YOUR SPOT ↗</text>
+          <text x="540" y="1056" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="22" fill="#ECCA6A" opacity="0.48" letter-spacing="3">SAT 4 JULY · PLATJA DEL FÒRUM</text>
+          <rect x="315" y="1086" width="450" height="64" rx="32" fill="rgba(236,202,106,0.08)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.28"/>
+          <text x="540" y="1126" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="#ECCA6A" opacity="0.65" letter-spacing="2">ONLY 30 SPOTS</text>
+          <text x="540" y="1210" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="white" opacity="0.2">lu.ma/barcelona-games</text>
+          <text x="540" y="1272" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.14" letter-spacing="2">@barcelonagames</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg2','barcelona-games-day-02-announcement.png', this)">
+        ⬇&nbsp; Download Day 02 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap2', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap2">Barcelona Games — officially open.
+
+One Saturday. Five teams of strangers. Four surprise games. A beach bar at golden hour.
+
+This is how you actually meet your people in Barcelona.
+
+First public edition. 30 spots only.
+→ lu.ma/barcelona-games (link in bio)</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash2', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash2">#BarcelonaGames #SocialSportsGames #Barcelona #BCN #BarcelonaEvents #BarcelonaLife #BeachBarcelona #BarcelonaExpats #NewInBarcelona #BarcelonaCommunity #BeachGames #TeamSports #SummerBarcelona #JulyBarcelona #ActiveBarcelona</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — same day</div>
+        <div class="story-box">Share post to story. Add a Poll sticker: "Are you coming? 🔴 Absolutely / 🟢 Tell me more" — Add a Link sticker pointing to lu.ma/barcelona-games. That evening, share the poll results as a second story — social proof in real time.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip</div>
+        <div class="tip-box">Reply to every comment within the first 60 minutes. Instagram reads early engagement density — 5 comments + 5 replies = 10 interactions, pushing the post to non-followers. Set a reminder now.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 3 — HOW IT WORKS                  -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">03</div>
+    <div class="day-meta">
+      <div class="day-title">How It Works</div>
+      <div class="day-date-time">Friday 22 May · Post at 19:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg3" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#F25C16"/>
+          <circle cx="1080" cy="1350" r="600" fill="#D94E0F" opacity="0.35"/>
+          <circle cx="0" cy="0" r="240" fill="#FF7A3A" opacity="0.12"/>
+          <text x="540" y="158" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.5" letter-spacing="5">HOW IT WORKS</text>
+          <text x="540" y="278" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="88" font-weight="700" fill="white" letter-spacing="-2">One Saturday.</text>
+          <text x="540" y="382" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="88" font-weight="700" fill="white" letter-spacing="-2">New crew.</text>
+          <line x1="160" y1="420" x2="920" y2="420" stroke="white" stroke-width="1.5" opacity="0.2"/>
+          <!-- Step 1 -->
+          <rect x="60" y="448" width="960" height="236" rx="20" fill="rgba(0,0,0,0.13)"/>
+          <text x="100" y="510" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.5" letter-spacing="3">15:00</text>
+          <text x="100" y="568" font-family="Helvetica Neue,Arial,sans-serif" font-size="44" font-weight="700" fill="white">Grab your bandana.</text>
+          <text x="100" y="618" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="white" opacity="0.68">Find your flag. Meet 4 strangers. Game on.</text>
+          <!-- Step 2 -->
+          <rect x="60" y="702" width="960" height="236" rx="20" fill="rgba(0,0,0,0.13)"/>
+          <text x="100" y="764" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.5" letter-spacing="3">16:00 – 18:30</text>
+          <text x="100" y="822" font-family="Helvetica Neue,Arial,sans-serif" font-size="44" font-weight="700" fill="white">4 surprise games.</text>
+          <text x="100" y="872" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="white" opacity="0.68">You won't know until you're there.</text>
+          <!-- Step 3 -->
+          <rect x="60" y="956" width="960" height="236" rx="20" fill="rgba(0,0,0,0.13)"/>
+          <text x="100" y="1018" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" font-weight="700" fill="white" opacity="0.5" letter-spacing="3">19:00</text>
+          <text x="100" y="1076" font-family="Helvetica Neue,Arial,sans-serif" font-size="44" font-weight="700" fill="white">Beach bar. Medals.</text>
+          <text x="100" y="1126" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="white" opacity="0.68">Champions crowned. Night is yours.</text>
+          <text x="540" y="1270" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.28" letter-spacing="2">@barcelonagames · SAT 4 JULY</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg3','barcelona-games-day-03-how-it-works.png', this)">
+        ⬇&nbsp; Download Day 03 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap3', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap3">Here's how Barcelona Games works.
+
+15:00 — Pick up your bandana. Find your team of 5 strangers.
+16:00 — Four surprise games. You won't know what they are until you're there.
+19:00 — Beach bar. Medals. The night is yours.
+
+Saturday, 4 July. Platja del Fòrum. 30 spots. €35.
+→ Link in bio.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash3', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash3">#BarcelonaGames #SocialSportsGames #BeachGames #TeamChallenge #BarcelonaEvents #BCN #Barcelona #OutdoorBarcelona #BeachBarcelona #PlatjaDelForum #SummerBarcelona #BarcelonaSummer #CommunityEvent #ActiveBarcelona #JulyBarcelona</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — same day, then follow-up</div>
+        <div class="story-box">Share post to story. Add a Question sticker: "Which part sounds most fun?" Collect answers throughout the day — reshare the most enthusiastic replies in a second story that evening. Free content, zero effort.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip</div>
+        <div class="tip-box">Friday evening = weekend planning mode. People are mentally open to spending €35 on something fun this Saturday. The orange post also pops visually between two dark posts in your grid.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 4 — THE GAMES                     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">04</div>
+    <div class="day-meta">
+      <div class="day-title">The Mystery Drop</div>
+      <div class="day-date-time">Saturday 23 May · Post at 11:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg4" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#0E1A14"/>
+          <line x1="0" y1="540" x2="440" y2="1350" stroke="white" stroke-width="1" opacity="0.025"/>
+          <line x1="280" y1="0" x2="940" y2="1350" stroke="white" stroke-width="1" opacity="0.02"/>
+          <text x="540" y="150" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="#F25C16" opacity="0.62" letter-spacing="5">THE GAMES</text>
+          <text x="540" y="278" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="98" font-weight="700" fill="white" letter-spacing="-2">4 surprises.</text>
+          <text x="540" y="388" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="98" font-weight="700" fill="#F25C16" letter-spacing="-2">0 spoilers.</text>
+          <line x1="160" y1="428" x2="920" y2="428" stroke="#F25C16" stroke-width="1.5" opacity="0.26"/>
+          <!-- 2x2 mystery cards -->
+          <rect x="60" y="456" width="456" height="208" rx="16" fill="rgba(242,92,22,0.06)" stroke="#F25C16" stroke-width="1" stroke-opacity="0.2"/>
+          <text x="288" y="536" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="52" fill="#F25C16" opacity="0.32">?</text>
+          <text x="288" y="594" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" font-weight="700" fill="white">Beach Relay</text>
+          <text x="288" y="634" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="white" opacity="0.36">Speed. Trust. Chaos.</text>
+          <rect x="564" y="456" width="456" height="208" rx="16" fill="rgba(242,92,22,0.06)" stroke="#F25C16" stroke-width="1" stroke-opacity="0.2"/>
+          <text x="792" y="536" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="52" fill="#F25C16" opacity="0.32">?</text>
+          <text x="792" y="594" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" font-weight="700" fill="white">Trust Game</text>
+          <text x="792" y="634" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="white" opacity="0.36">Blindfolded. Guided.</text>
+          <rect x="60" y="682" width="456" height="208" rx="16" fill="rgba(242,92,22,0.06)" stroke="#F25C16" stroke-width="1" stroke-opacity="0.2"/>
+          <text x="288" y="762" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="52" fill="#F25C16" opacity="0.32">?</text>
+          <text x="288" y="820" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" font-weight="700" fill="white">Team Challenge</text>
+          <text x="288" y="860" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="white" opacity="0.36">Strategy. Teamwork.</text>
+          <rect x="564" y="682" width="456" height="208" rx="16" fill="rgba(242,92,22,0.06)" stroke="#F25C16" stroke-width="1" stroke-opacity="0.2"/>
+          <text x="792" y="762" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="52" fill="#F25C16" opacity="0.32">?</text>
+          <text x="792" y="820" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" font-weight="700" fill="white">Grand Finale</text>
+          <text x="792" y="860" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="white" opacity="0.36">All teams. One winner.</text>
+          <text x="540" y="960" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="white" opacity="0.26" font-style="italic">Revealed day-of only.</text>
+          <!-- Quote -->
+          <rect x="60" y="988" width="960" height="188" rx="16" fill="rgba(255,255,255,0.025)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <text x="96" y="1050" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" fill="white" opacity="0.62" font-style="italic">"I had no idea what was coming next.</text>
+          <text x="96" y="1092" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" fill="white" opacity="0.62" font-style="italic">That's exactly why it worked."</text>
+          <text x="96" y="1140" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="#F25C16" opacity="0.6">Beta tester · Product designer</text>
+          <rect x="180" y="1196" width="720" height="96" rx="48" fill="#F25C16"/>
+          <text x="540" y="1256" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="30" font-weight="700" fill="white">JOIN THE MYSTERY ↗</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg4','barcelona-games-day-04-games.png', this)">
+        ⬇&nbsp; Download Day 04 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap4', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap4">Four games. Revealed day-of only. 👀
+
+Every single one designed to force you to trust someone you met an hour earlier.
+
+It works. We've seen it.
+
+30 spots — some are already gone.
+→ Link in bio.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash4', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash4">#BarcelonaGames #SocialSportsGames #TeamChallenge #BeachGames #Barcelona #BCN #BarcelonaEvents #FunInBarcelona #ActiveBarcelona #OutdoorBarcelona #BeachBarcelona #CommunityBuilding #Teamwork #SummerBarcelona #BarcelonaLife</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — double wave</div>
+        <div class="story-box">Morning: Share post + Question sticker "What do you think the 4 games are?" Reply to every guess with "maybe 👀" or "not telling 🤐". Evening: Repost as a new story showing 3 of the best/funniest guesses. Creates a second wave of reach same day.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip</div>
+        <div class="tip-box">Saturday morning = peak scroll time. People are planning their day/week. Never reveal the games in DMs — "Come and find out" is your only answer, always. The mystery is why people share it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 5 — THE TEAMS                     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">05</div>
+    <div class="day-meta">
+      <div class="day-title">Meet Your Team</div>
+      <div class="day-date-time">Sunday 24 May · Post at 12:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg5" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#0B2545"/>
+          <circle cx="540" cy="260" r="360" fill="none" stroke="#ECCA6A" stroke-width="1" opacity="0.06"/>
+          <text x="540" y="148" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="#ECCA6A" opacity="0.55" letter-spacing="5">MEET YOUR TEAM</text>
+          <text x="540" y="272" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="90" font-weight="700" fill="white" letter-spacing="-2">5 teams.</text>
+          <text x="540" y="376" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="90" font-weight="700" fill="#ECCA6A" letter-spacing="-2">Random draw.</text>
+          <line x1="160" y1="414" x2="920" y2="414" stroke="#ECCA6A" stroke-width="1" opacity="0.18"/>
+          <text x="540" y="464" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" fill="white" opacity="0.4">You don't choose. That's the point.</text>
+          <!-- Team strips -->
+          <rect x="60" y="494" width="960" height="128" rx="14" fill="#B82828"/>
+          <circle cx="138" cy="558" r="36" fill="rgba(255,255,255,0.14)"/>
+          <text x="138" y="572" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" font-weight="700" fill="white">T</text>
+          <text x="206" y="540" font-family="Helvetica Neue,Arial,sans-serif" font-size="40" font-weight="700" fill="white">Triomf</text>
+          <text x="206" y="582" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.62">Bold. Fast. Unstoppable.</text>
+          <rect x="60" y="636" width="960" height="128" rx="14" fill="#A85E18"/>
+          <circle cx="138" cy="700" r="36" fill="rgba(255,255,255,0.14)"/>
+          <text x="138" y="714" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" font-weight="700" fill="white">S</text>
+          <text x="206" y="682" font-family="Helvetica Neue,Arial,sans-serif" font-size="40" font-weight="700" fill="white">Sagrada</text>
+          <text x="206" y="724" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.62">Creative. Strategic. Precise.</text>
+          <rect x="60" y="778" width="960" height="128" rx="14" fill="#157060"/>
+          <circle cx="138" cy="842" r="36" fill="rgba(255,255,255,0.14)"/>
+          <text x="138" y="856" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" font-weight="700" fill="white">G</text>
+          <text x="206" y="824" font-family="Helvetica Neue,Arial,sans-serif" font-size="40" font-weight="700" fill="white">Güell</text>
+          <text x="206" y="866" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.62">Calm. Calculated. Lethal.</text>
+          <rect x="60" y="920" width="960" height="128" rx="14" fill="#5A22A8"/>
+          <circle cx="138" cy="984" r="36" fill="rgba(255,255,255,0.14)"/>
+          <text x="138" y="998" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="700" fill="white">Ti</text>
+          <text x="206" y="966" font-family="Helvetica Neue,Arial,sans-serif" font-size="40" font-weight="700" fill="white">Tibidabo</text>
+          <text x="206" y="1008" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.62">Mysterious. Unpredictable. Wild.</text>
+          <rect x="60" y="1062" width="960" height="128" rx="14" fill="#0A8B62"/>
+          <circle cx="138" cy="1126" r="36" fill="rgba(255,255,255,0.14)"/>
+          <text x="138" y="1140" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" font-weight="700" fill="white">F</text>
+          <text x="206" y="1108" font-family="Helvetica Neue,Arial,sans-serif" font-size="40" font-weight="700" fill="white">Fòrum</text>
+          <text x="206" y="1150" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.62">Fast. Fearless. Free.</text>
+          <text x="540" y="1258" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" fill="white" opacity="0.3" font-style="italic">Which colour will you be?</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg5','barcelona-games-day-05-teams.png', this)">
+        ⬇&nbsp; Download Day 05 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap5', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap5">Five teams. One random draw.
+
+Triomf. Sagrada. Güell. Tibidabo. Fòrum.
+
+You don't choose your team — that's literally the whole point.
+
+Drop your colour below 👇
+🔴 Triomf  🟠 Sagrada  🟢 Güell  🟣 Tibidabo  🟩 Fòrum
+
+→ Link in bio. 30 spots. Some gone.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash5', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash5">#BarcelonaGames #SocialSportsGames #TeamBarcelona #Barcelona #BCN #BarcelonaExpats #NewInBarcelona #MeetNewPeople #BarcelonaCommunity #BeachBarcelona #TeamColors #SummerBarcelona #JulyBarcelona #BarcelonaLife #SocialEvent</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — shareability play</div>
+        <div class="story-box">Share post to story. Add Emoji Slider sticker — "How badly do you want Fòrum? 🔥" Then a second story: "Tag someone who'd be terrified to have their team chosen randomly 😂" — tags = organic reach beyond followers. Highest shareability post of the week.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip</div>
+        <div class="tip-box">The emoji comment prompt lowers the barrier to engage. Every 🔴 🟢 🟣 in comments counts the same as a text comment for the algorithm. Sunday noon is peak scroll time — this is your highest comment-count post of the week.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 6 — PROOF                         -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">06</div>
+    <div class="day-meta">
+      <div class="day-title">The Proof</div>
+      <div class="day-date-time">Monday 25 May · Post at 18:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg6" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#FFF8F2"/>
+          <circle cx="1000" cy="1280" r="500" fill="#ECCA6A" opacity="0.05"/>
+          <circle cx="80" cy="80" r="200" fill="#F25C16" opacity="0.03"/>
+          <text x="540" y="96" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="#0B2545" opacity="0.36" letter-spacing="4">BY THE NUMBERS</text>
+          <text x="540" y="162" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="42" font-weight="700" fill="#0B2545" letter-spacing="-1">Barcelona Games.</text>
+          <line x1="160" y1="188" x2="920" y2="188" stroke="#0B2545" stroke-width="1" opacity="0.09"/>
+          <!-- Stats 2x2 -->
+          <rect x="56" y="212" width="458" height="286" rx="20" fill="white" stroke="#ECCA6A" stroke-width="1.5" stroke-opacity="0.42"/>
+          <text x="285" y="370" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="102" font-weight="700" fill="#0B2545">No.1</text>
+          <text x="285" y="430" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="#0B2545" opacity="0.44">First public edition</text>
+          <text x="285" y="472" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#F25C16" opacity="0.75">Ever in Barcelona.</text>
+          <rect x="566" y="212" width="458" height="286" rx="20" fill="white" stroke="#ECCA6A" stroke-width="1.5" stroke-opacity="0.42"/>
+          <text x="795" y="370" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="102" font-weight="700" fill="#0B2545">29</text>
+          <text x="795" y="430" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="#0B2545" opacity="0.44">New friendships</text>
+          <text x="795" y="472" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#F25C16" opacity="0.75">In our April beta.</text>
+          <rect x="56" y="518" width="458" height="286" rx="20" fill="#F25C16"/>
+          <text x="285" y="676" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="102" font-weight="700" fill="white">4</text>
+          <text x="285" y="736" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.78">Surprise games</text>
+          <text x="285" y="778" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="white" opacity="0.62">Revealed day-of.</text>
+          <rect x="566" y="518" width="458" height="286" rx="20" fill="#0B2545"/>
+          <text x="795" y="676" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="102" font-weight="700" fill="white">€35</text>
+          <text x="795" y="736" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="21" fill="white" opacity="0.65">Early bird</text>
+          <text x="795" y="778" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#ECCA6A" opacity="0.8">30 spots only.</text>
+          <!-- Quotes -->
+          <rect x="56" y="836" width="968" height="196" rx="18" fill="white" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.3"/>
+          <text x="92" y="900" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="#0B2545" opacity="0.68" font-style="italic">"More fun than half the networking</text>
+          <text x="92" y="944" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="#0B2545" opacity="0.68" font-style="italic">events I've paid 5× for."</text>
+          <text x="92" y="996" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#F25C16">Beta tester · Marketing lead</text>
+          <rect x="56" y="1058" width="968" height="172" rx="18" fill="white" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.3"/>
+          <text x="92" y="1118" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="#0B2545" opacity="0.68" font-style="italic">"Four hours. Five strangers.</text>
+          <text x="92" y="1162" font-family="Helvetica Neue,Arial,sans-serif" font-size="28" fill="#0B2545" opacity="0.68" font-style="italic">One group chat. Still talking."</text>
+          <text x="92" y="1206" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#F25C16">Beta tester · Startup founder</text>
+          <text x="540" y="1294" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="19" fill="#0B2545" opacity="0.2" letter-spacing="1">@barcelonagames</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg6','barcelona-games-day-06-proof.png', this)">
+        ⬇&nbsp; Download Day 06 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap6', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap6">We ran a private beta in April.
+
+29 new friendships made.
+One WhatsApp group still active two months later.
+And a quote we can't stop thinking about:
+
+"More fun than half the networking events I've paid 5× the price for."
+
+€35. Saturday 4 July. Spots filling.
+→ Link in bio.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash6', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash6">#BarcelonaGames #SocialSportsGames #Barcelona #BCN #BarcelonaEvents #BarcelonaExpats #BarcelonaCommunity #NewInBarcelona #SocialEvent #MeetNewPeople #ActiveBarcelona #BeachBarcelona #CommunityEvent #BarcelonaLife #JulyBarcelona</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — convert</div>
+        <div class="story-box">Share post to story. Poll sticker: "Have you booked your spot? 🔴 Yes, I'm in / 🟢 About to." Add Link sticker direct to lu.ma/barcelona-games. That evening: second story — "X spots left. Going fast." with the link again. Monday evening = high purchase intent after the weekend high.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip — the resurface trick</div>
+        <div class="tip-box">After posting today, go back to Days 2–5 and like every comment you haven't replied to yet. This resurfaces old posts in followers' notification feeds and sends a second traffic wave — for free.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<!-- DAY 7 — THE CLOSE                     -->
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<div class="day-card">
+  <div class="day-header-row">
+    <div class="day-num">07</div>
+    <div class="day-meta">
+      <div class="day-title">The Close</div>
+      <div class="day-date-time">Tuesday 26 May · Post at 19:00 CET</div>
+    </div>
+  </div>
+  <div class="day-body">
+    <div class="preview-col">
+      <div class="svg-frame">
+        <svg id="svg7" viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1350" fill="#0B2545"/>
+          <circle cx="960" cy="400" r="480" fill="none" stroke="#ECCA6A" stroke-width="2" opacity="0.07"/>
+          <text x="540" y="140" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="#ECCA6A" opacity="0.55" letter-spacing="5">YOUR TICKET IN</text>
+          <text x="540" y="398" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="214" font-weight="700" fill="white" letter-spacing="-6">€35</text>
+          <text x="540" y="458" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="26" fill="#ECCA6A" opacity="0.62">Early bird · First public edition</text>
+          <line x1="160" y1="498" x2="920" y2="498" stroke="#ECCA6A" stroke-width="1" opacity="0.18"/>
+          <text x="540" y="550" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.35" letter-spacing="3">WHAT'S INCLUDED</text>
+          <!-- 6 included items 2x3 grid -->
+          <rect x="56" y="572" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="92" y="622" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="132" y="618" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">4 surprise games</text>
+          <text x="132" y="656" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">Fully organised beach sports</text>
+          <rect x="566" y="572" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="602" y="622" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="642" y="618" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">Team bandana</text>
+          <text x="642" y="656" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">Your colour. Yours to keep.</text>
+          <rect x="56" y="698" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="92" y="748" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="132" y="744" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">Pica-pica spread</text>
+          <text x="132" y="782" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">Snacks &amp; bites on us</text>
+          <rect x="566" y="698" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="602" y="748" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="642" y="744" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">Winner's medal</text>
+          <text x="642" y="782" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">Champions crowned.</text>
+          <rect x="56" y="824" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="92" y="874" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="132" y="870" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">Beach bar at sunset</text>
+          <text x="132" y="908" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">Post-game golden hour</text>
+          <rect x="566" y="824" width="458" height="112" rx="13" fill="rgba(236,202,106,0.05)" stroke="#ECCA6A" stroke-width="1" stroke-opacity="0.13"/>
+          <text x="602" y="874" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" fill="#ECCA6A" opacity="0.7">✓</text>
+          <text x="642" y="870" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="600" fill="white">New connections</text>
+          <text x="642" y="908" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.38">29 in April</text>
+          <!-- Urgency + CTA -->
+          <rect x="180" y="970" width="720" height="78" rx="16" fill="rgba(242,92,22,0.12)" stroke="#F25C16" stroke-width="1" stroke-opacity="0.28"/>
+          <text x="540" y="1018" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="24" font-weight="700" fill="#F25C16">30 SPOTS ONLY</text>
+          <rect x="120" y="1068" width="840" height="104" rx="52" fill="#F25C16"/>
+          <text x="540" y="1132" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="34" font-weight="700" fill="white">GRAB YOUR SPOT ↗</text>
+          <text x="540" y="1228" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="20" fill="white" opacity="0.22">lu.ma/barcelona-games</text>
+          <text x="540" y="1280" text-anchor="middle" font-family="Helvetica Neue,Arial,sans-serif" font-size="18" fill="white" opacity="0.14" letter-spacing="1">@barcelonagames</text>
+        </svg>
+      </div>
+      <div class="safe-note">✓ 1080 × 1350 · Instagram Portrait · Safe Zone OK</div>
+      <button class="btn-download" onclick="downloadPNG('svg7','barcelona-games-day-07-close.png', this)">
+        ⬇&nbsp; Download Day 07 PNG
+      </button>
+    </div>
+    <div class="copy-col">
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label orange">Caption</span>
+          <button class="btn-copy" onclick="copyText('cap7', this)">Copy</button>
+        </div>
+        <div class="text-box" id="cap7">€35. Here's everything you get:
+
+→ Four surprise beach games, fully organised
+→ Your team bandana (colour-coded, yours to keep)
+→ Pica-pica spread on us
+→ Winner's medal
+→ Beach bar at sunset
+→ A team of 5 people you didn't know on Saturday morning
+
+Saturday 4 July. Platja del Fòrum. 30 spots.
+This is the last time we're mentioning it.
+→ Link in bio.</div>
+      </div>
+      <div class="copy-block">
+        <div class="copy-block-header">
+          <span class="blk-label blue">Hashtags — first comment</span>
+          <button class="btn-copy" onclick="copyText('hash7', this)">Copy</button>
+        </div>
+        <div class="text-box hashtags" id="hash7">#BarcelonaGames #SocialSportsGames #Barcelona #BCN #BarcelonaEvents #BeachBarcelona #PlatjaDelForum #SummerBarcelona #JulyBarcelona #ActiveBarcelona #BarcelonaCommunity #BarcelonaExpats #BeachGames #SocialEvent #BarcelonaLife</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label gold" style="margin-bottom:8px">Story — conversion all day</div>
+        <div class="story-box">Share post to story with Countdown sticker to July 4. Add Link sticker to lu.ma/barcelona-games. Two hours later: a new story — your Luma attendee count (even if small, "X people booked this week" is social proof). Final story tonight: just the price (€35) and a link sticker. No text. Let the number do the work.</div>
+      </div>
+      <div class="copy-block">
+        <div class="blk-label orange" style="margin-bottom:8px">Pro tip — the DM close (do this tonight)</div>
+        <div class="tip-box">Go through every person who liked or commented on Days 1–6 but hasn't booked. DM them: "Hey — we still have a few spots if you're thinking about it 👀 lu.ma/barcelona-games" One message. One link. No follow-up. This is your highest-ROI action of the entire week.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ━━━ FOOTER ━━━ -->
+<div class="site-footer">
+  <p>Barcelona Games · Social Sports Games · @barcelonagames · lu.ma/barcelona-games · Platja del Fòrum · Saturday 4 July 2026</p>
+  <div class="brand">Images: 1080 × 1350 · Instagram Portrait 4:5 · Safe Zone Compliant</div>
+</div>
+
+<script>
+// ── iOS DETECTION ──
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+// ── iOS SAVE MODAL ──
+function showIOSModal(dataUrl, filename) {
+  // Remove any existing modal
+  const existing = document.getElementById('ios-modal');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'ios-modal';
+  overlay.style.cssText = [
+    'position:fixed;inset:0;z-index:9999',
+    'background:rgba(5,8,12,0.96)',
+    'display:flex;flex-direction:column;align-items:center;justify-content:flex-start',
+    'padding:24px 16px 32px',
+    'overflow-y:auto;-webkit-overflow-scrolling:touch'
+  ].join(';');
+
+  // Header
+  const header = document.createElement('div');
+  header.style.cssText = 'width:100%;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;';
+
+  const tip = document.createElement('div');
+  tip.innerHTML = '<span style="color:#ECCA6A;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Press &amp; hold image → Save to Photos</span>';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕';
+  closeBtn.style.cssText = [
+    'background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15)',
+    'color:white;width:36px;height:36px;border-radius:50%',
+    'font-size:16px;cursor:pointer;flex-shrink:0'
+  ].join(';');
+  closeBtn.onclick = () => overlay.remove();
+
+  header.appendChild(tip);
+  header.appendChild(closeBtn);
+
+  // Instruction pill
+  const pill = document.createElement('div');
+  pill.style.cssText = [
+    'background:rgba(242,92,22,0.12);border:1px solid rgba(242,92,22,0.3)',
+    'border-radius:10px;padding:12px 16px;margin-bottom:20px;width:100%',
+    'font-size:13px;color:rgba(242,92,22,0.9);line-height:1.6;text-align:center'
+  ].join(';');
+  pill.innerHTML = '1. Press and hold the image below<br>2. Tap <strong>Save to Photos</strong> or <strong>Save Image</strong><br>3. Post from your camera roll';
+
+  // Image
+  const imgEl = document.createElement('img');
+  imgEl.src = dataUrl;
+  imgEl.style.cssText = [
+    'width:100%;max-width:400px;border-radius:12px;display:block',
+    'box-shadow:0 20px 60px rgba(0,0,0,0.7)'
+  ].join(';');
+
+  overlay.appendChild(header);
+  overlay.appendChild(pill);
+  overlay.appendChild(imgEl);
+  document.body.appendChild(overlay);
+}
+
+// ── DOWNLOAD PNG ──
+function downloadPNG(svgId, filename, btn) {
+  const svg = document.getElementById(svgId);
+  if (!svg) return;
+
+  const originalText = btn.textContent;
+  btn.textContent = '⏳  Rendering…';
+  btn.classList.add('loading');
+
+  // Serialize SVG
+  const serializer = new XMLSerializer();
+  let svgStr = serializer.serializeToString(svg);
+  if (!svgStr.includes('xmlns=')) {
+    svgStr = svgStr.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+  }
+
+  const canvas = document.createElement('canvas');
+  canvas.width  = 1080;
+  canvas.height = 1350;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#05080C';
+  ctx.fillRect(0, 0, 1080, 1350);
+
+  const img = new Image(1080, 1350);
+
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0, 1080, 1350);
+
+    if (isIOS) {
+      // iOS Safari: blob downloads are silently blocked.
+      // Show a fullscreen modal with the rendered image so user can long-press → Save to Photos.
+      const dataUrl = canvas.toDataURL('image/png');
+      showIOSModal(dataUrl, filename);
+      btn.textContent = '📱  Press & hold image to save';
+      btn.classList.remove('loading');
+      setTimeout(() => { btn.textContent = originalText; }, 4000);
+      return;
+    }
+
+    // Desktop: standard blob download
+    canvas.toBlob(function (blob) {
+      if (!blob) {
+        alert('Could not generate PNG. Try right-clicking the image preview and choosing "Save Image As".');
+        btn.textContent = originalText;
+        btn.classList.remove('loading');
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const a   = document.createElement('a');
+      a.href     = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+      btn.textContent = '✓  Downloaded!';
+      btn.classList.remove('loading');
+      btn.classList.add('done');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('done');
+      }, 3000);
+    }, 'image/png');
+
+    URL.revokeObjectURL(img.src);
+  };
+
+  img.onerror = function () {
+    btn.textContent = '⚠ Failed — right-click image to save';
+    btn.classList.remove('loading');
+    setTimeout(() => { btn.textContent = originalText; }, 4000);
+  };
+
+  img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+}
+
+// ── COPY TEXT ──
+async function copyText(elemId, btn) {
+  const el = document.getElementById(elemId);
+  if (!el) return;
+  const text = el.innerText || el.textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  const orig = btn.textContent;
+  btn.textContent = '✓  Copied!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.textContent = orig;
+    btn.classList.remove('copied');
+  }, 2200);
+}
+</script>
+</body>
+</html>
