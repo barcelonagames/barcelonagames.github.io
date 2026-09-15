@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <g>
+    <path d="M111 132 L94 186 Q92 192 98 190 L113 183 L123 138 Z" fill="#EE3D2A"/>
+    <path d="M129 132 L146 186 Q148 192 142 190 L127 183 L117 138 Z" fill="#EE3D2A"/>
+    <path d="M62 110 C66 97 72 93 82 93 C110 88 130 88 158 93 C168 93 174 97 178 110 C180 118 178 124 172 128 C146 139 94 139 68 128 C62 124 60 118 62 110 Z" fill="#EE3D2A"/>
+    <path d="M68 125 C96 136 144 136 172 125 C168 132 161 136 153 137 C120 143 99 142 87 137 C79 136 72 130 68 125 Z" fill="#CC2E1D" opacity="0.9"/>
+    <text x="120" y="116" text-anchor="middle" font-family="Lato" font-weight="900" font-size="34" letter-spacing="1" fill="#F4EDE0">BG</text>
+    <rect x="105" y="116" width="28" height="28" rx="8" transform="rotate(6 119 130)" fill="#F4EDE0"/>
+    <path d="M119 120 C123 126 123 133 119 139" stroke="#EE3D2A" stroke-width="2.6" fill="none" stroke-linecap="round" opacity="0.5"/>
+  </g>
+</svg>
