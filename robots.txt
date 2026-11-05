@@ -1,0 +1,112 @@
+# Barcelona Games. Public pages are crawlable; admin, private and thank-you pages are not.
+# AI search and assistant crawlers are welcome on public pages on purpose: we want to be found when
+# companies ask an AI for Olympic-style retreats or team building in Barcelona and Catalonia.
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /admin/
+Disallow: /community/admin/
+Disallow: /road/admin/
+Disallow: /thanks/
+Disallow: /confirmation/
+Disallow: /register/
+Disallow: /reserve/
+Disallow: /weekend-games/memories/
+Disallow: /weekend-games/crew/
+
+Sitemap: https://playbarcelonagames.com/sitemap.xml
